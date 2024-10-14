@@ -1,0 +1,6 @@
+.env
+get_started.mp4
+DejaVuSanss.ttf
+streamlit_app.py
+streamlit_app2.py
+.streamlit\secrets.toml
