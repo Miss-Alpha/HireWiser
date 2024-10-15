@@ -62,7 +62,8 @@ def read_resume(uploaded_cv):
     
 
 def summarise_resume(full_resume, openai_key):
-    client = OpenAI(api_key=openai_key)
+    #client = OpenAI(api_key=openai_key)
+    client = OpenAI(api_key=st.secrets["OpenAI_key"])
     summary_prompt = f"Summarize the following resume into one concise paragraph, highlighting the candidate's key skills, experience, and qualifications: \n\n{full_resume}."
 
     resume_summary = client.chat.completions.create(
