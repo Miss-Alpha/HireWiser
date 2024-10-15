@@ -5,6 +5,7 @@ import tempfile
 from langchain_community.document_loaders import PyPDFLoader
 import numpy as np
 import streamlit as st
+from docx import Document
 
 #load_dotenv()
 
@@ -13,18 +14,50 @@ import streamlit as st
 
 #client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-def read_resume(uploaded_cv):
-    # Save the uploaded file as a temporary file
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
-        tmp_file.write(uploaded_cv.read())  # Write the uploaded PDF content to a temp file
-        temp_file_path = tmp_file.name
+# def read_resume(uploaded_cv):
+#     # Save the uploaded file as a temporary file
+#     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
+#         tmp_file.write(uploaded_cv.read())  # Write the uploaded PDF content to a temp file
+#         temp_file_path = tmp_file.name
     
-    # Use PyPDFLoader to read the content of the PDF from the temporary file path
-    loader = PyPDFLoader(temp_file_path)
-    documents = loader.load()
+#     # Use PyPDFLoader to read the content of the PDF from the temporary file path
+#     loader = PyPDFLoader(temp_file_path)
+#     documents = loader.load()
 
-    # Combine all documents into a single text
-    full_resume = "\n".join([doc.page_content for doc in documents])
+#     # Combine all documents into a single text
+#     full_resume = "\n".join([doc.page_content for doc in documents])
+#     return full_resume
+
+def read_resume(uploaded_cv):
+    # Determine the file extension
+    file_extension = uploaded_cv.name.split('.')[-1].lower()
+
+    # Check if the file is a PDF
+    if file_extension == "pdf":
+        # Save the uploaded file as a temporary PDF file
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
+            tmp_file.write(uploaded_cv.read())  # Write the uploaded PDF content to a temp file
+            temp_file_path = tmp_file.name
+
+        # Use PyPDFLoader to read the content of the PDF
+        loader = PyPDFLoader(temp_file_path)
+        documents = loader.load()
+        full_resume = "\n".join([doc.page_content for doc in documents])
+    
+    # Check if the file is a DOCX
+    elif file_extension == "docx":
+        # Save the uploaded file as a temporary DOCX file
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as tmp_file:
+            tmp_file.write(uploaded_cv.read())  # Write the uploaded DOCX content to a temp file
+            temp_file_path = tmp_file.name
+
+        # Use python-docx to read the content of the DOCX file
+        doc = Document(temp_file_path)
+        full_resume = "\n".join([para.text for para in doc.paragraphs])
+
+    else:
+        raise ValueError("Unsupported file type. Please upload a PDF or DOCX file.")
+    
     return full_resume
     
 
