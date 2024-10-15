@@ -1,6 +1,7 @@
 
 import re
 import texts
+import os.path
 
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
@@ -15,6 +16,8 @@ from datetime import datetime
 from streamlit_extras.stylable_container import stylable_container
 
 pdfmetrics.registerFont(TTFont('DejaVuSans', 'DejaVuSans.ttf')) 
+
+logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'img/logo.gif')
 
 # Create PDF Functions
 def create_header_style(level):
@@ -177,7 +180,7 @@ def generate_filename(base_name):
     return f"{base_name}_{timestamp}.pdf"
 
 
-def create_pdf(pdf_filename, sections, logo_path = 'img\logo.gif', tips_text = texts.tips_text, candidate_name=''):
+def create_pdf(pdf_filename, sections, logo_path = logo_path, tips_text = texts.tips_text, candidate_name=''):
     """Create a PDF with the given sections."""
     doc = SimpleDocTemplate(pdf_filename, pagesize=A4)
     content = []

@@ -91,6 +91,7 @@ def create_main_frame():
         st.button('Submit', on_click=set_state, args=[1], use_container_width=True)
         #       st.session_state['openai_key'] = openai_text_area
 
+        st.info('🗝️Please add your OpenAI API key to continue.')
 
      
     if st.session_state.stage == 1:
