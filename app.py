@@ -67,25 +67,27 @@ def create_main_frame():
     if st.session_state.stage == 0:
 
     #     #progress_bar.progress((st.session_state.stage+1)*15)
-    #     col011, col012, col013 = st.columns([0.5, 1, 0.5])
-    #     with col011: 
-    #         st.markdown('')
-    #         st.markdown("""
-    #         <style>
-    #         .reportview-container {
-    #             background-color: #ff5400
-    #         }
-    #         </style>
-    #         """, unsafe_allow_html=True)
-    #     with col012: 
-    #         st.image('img/logo.gif') 
+        col011, col012, col013 = st.columns([0.5, 1, 0.5])
+        with col011: 
+            st.markdown('')
+            st.markdown("""
+            <style>
+            .reportview-container {
+                background-color: #ff5400
+            }
+            </style>
+            """, unsafe_allow_html=True)
+            
+        with col012: 
+            st.image('img/logo.gif') 
+            
 
-    #     with col013: 
-    #         st.markdown(' ')
+        with col013: 
+            st.markdown(' ')
+        
 
     #     # Ask the user's api key
     #     # with st.form('form'):
-
         st.info('🗝️Please add your OpenAI API key to continue.')
         openai_text_area = st.text_input('Enter Your OpenAI API token:', '', type='password')
         st.session_state['openai_key'] = openai_text_area
