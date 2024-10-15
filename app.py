@@ -85,14 +85,15 @@ def create_main_frame():
 
         # Ask the user's api key
         # with st.form('form'):
+
+        st.info('🗝️Please add your OpenAI API key to continue.')
         openai_text_area = st.text_input('Enter Your OpenAI API token:', '', type='password')
         st.session_state['openai_key'] = openai_text_area
 
         st.button('Submit', on_click=set_state, args=[1], use_container_width=True)
         #       st.session_state['openai_key'] = openai_text_area
 
-        st.info('🗝️Please add your OpenAI API key to continue.')
-
+        
      
     if st.session_state.stage == 1:
         progress_bar.progress((st.session_state.stage+1)*15)
@@ -163,7 +164,7 @@ def create_main_frame():
 
         resume_summary = ""
 
-        st.info('To ensure the best results, please upload resumes in a standard format (PDF, DOCX) with clear sections like Work Experience, Skills, and Education. This helps our system generate an accurate summary and relevant interview questions.')
+        st.info('To ensure the best results, please upload resumes in a standard format (PDF, DOCX) with clear sections like Work Experience, Skills, and Education. \n This helps our system generate an accurate summary and relevant interview questions.')
 
         col1, col2= st.columns([1, 1])
 
